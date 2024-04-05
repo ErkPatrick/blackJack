@@ -66,7 +66,7 @@
             <Font name="Arial Black" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lbBlackjackJogador" layoutX="770.0" layoutY="771.0" prefHeight="17.0" prefWidth="27.0" text="Bj" textFill="#ffe100">
+      <Label fx:id="lbBlackjackJogador" layoutX="770.0" layoutY="771.0" prefHeight="17.0" prefWidth="27.0" text="Bj" textFill="#ffe100" visible="false">
          <font>
             <Font name="Arial Black" size="18.0" />
          </font>
