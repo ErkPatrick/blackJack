@@ -113,7 +113,6 @@ public class TelaJogoController {
     static ImageView[] imgCartasDealer = new ImageView[11];
     
     static Blackjack blackjack;
-
     
     private void preencherVetorImageViewJogador() {
 		imgCartasJogador[0] = carta1Jogador;
@@ -272,6 +271,8 @@ public class TelaJogoController {
 		bntPuxarCarta.setDisable(false);
 		statusEndGame.setText(null);
 		pontosEndGame.setText(null);
+		lbBlackjackDealer.setVisible(false);
+		lbBlackjackJogador.setVisible(false);
 		initialize(blackjack.getJogador().getNome());
     }
 	

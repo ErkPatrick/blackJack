@@ -61,7 +61,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Label fx:id="lbBlackjackDealer" layoutX="876.0" layoutY="73.0" prefHeight="17.0" prefWidth="27.0" text="Bj" textFill="#ffe100" visible="false">
+      <Label fx:id="lbBlackjackDealer" layoutX="769.0" layoutY="58.0" prefHeight="17.0" prefWidth="27.0" text="Bj" textFill="#ffe100" visible="false">
          <font>
             <Font name="Arial Black" size="18.0" />
          </font>

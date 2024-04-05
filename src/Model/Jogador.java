@@ -10,10 +10,12 @@ public class Jogador {
 	private String nome;
 	List<Carta> mao = new ArrayList<Carta>();
 	private int somatorioMao = 0;
-	static Baralho baralho = new Baralho();
+	static Baralho baralho;
 	
 	
-	public Jogador() {
+	public Jogador(String nomeJogador) {
+		baralho = new Baralho();
+		setNome(nomeJogador);
 		inicializarMao();
 	}
 	
