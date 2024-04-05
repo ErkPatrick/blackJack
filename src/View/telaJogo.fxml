@@ -6,22 +6,28 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1600.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TelaJogoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #2E8B57;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TelaJogoController">
    <children>
       <Label fx:id="statusEndGame" layoutX="327.0" layoutY="339.0" prefHeight="141.0" prefWidth="396.0">
          <font>
             <Font size="96.0" />
          </font>
       </Label>
-      <Label fx:id="nomeJogador" layoutX="826.0" layoutY="808.0" prefHeight="31.0" prefWidth="178.0" text="Nome do Jogador" textFill="WHITE">
+      <Label fx:id="nomeJogador" layoutX="682.0" layoutY="855.0" prefHeight="31.0" prefWidth="178.0" text="Nome do Jogador" textFill="WHITE">
          <font>
-            <Font size="21.0" />
+            <Font name="System Bold Italic" size="21.0" />
          </font></Label>
-      <Label fx:id="somaCartasDealer" layoutX="819.0" layoutY="100.0" text="Soma das cartas do Dealer" />
-      <Label fx:id="somaCartasJogador" layoutX="839.0" layoutY="722.0" text="Soma das cartas do Jogador" />
-      <Label fx:id="nomeDealer" layoutX="804.0" layoutY="14.0" prefHeight="31.0" prefWidth="171.0" text="Nome do Dealer" textFill="WHITE">
+      <Label fx:id="somaCartasDealer" layoutX="770.0" layoutY="85.0" text="21" textFill="#f6ff00">
          <font>
-            <Font size="21.0" />
+            <Font name="System Bold" size="21.0" />
+         </font></Label>
+      <Label fx:id="somaCartasJogador" layoutX="770.0" layoutY="740.0" text="21" textFill="#fff600">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font></Label>
+      <Label fx:id="nomeDealer" layoutX="686.0" layoutY="14.0" prefHeight="31.0" prefWidth="171.0" text="Nome do Dealer" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="21.0" />
          </font></Label>
       <ImageView fx:id="carta1Jogador" fitHeight="181.5" fitWidth="125.0" layoutX="52.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="carta2Jogador" fitHeight="181.5" fitWidth="125.0" layoutX="191.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
@@ -45,14 +51,22 @@
       <ImageView fx:id="carta9Dealer" fitHeight="181.5" fitWidth="125.0" layoutX="1146.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="carta10Dealer" fitHeight="181.5" fitWidth="125.0" layoutX="1285.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="carta11Dealer" fitHeight="181.5" fitWidth="125.0" layoutX="1421.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="bntPuxarCarta" layoutX="809.0" layoutY="767.0" mnemonicParsing="false" onAction="#puxarCarta" text="Puxar Carta" />
-      <Button fx:id="bntManter" layoutX="915.0" layoutY="767.0" mnemonicParsing="false" onAction="#manterMao" text="Manter" />
+      <Button fx:id="bntPuxarCarta" layoutX="661.0" layoutY="818.0" mnemonicParsing="false" onAction="#puxarCarta" style="-fx-background-color: #00CED1;" text="Puxar Carta">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="bntManter" layoutX="816.0" layoutY="818.0" mnemonicParsing="false" onAction="#manterMao" style="-fx-background-color: yellow;" text="Manter">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
       <Label fx:id="lbBlackjackDealer" layoutX="876.0" layoutY="73.0" prefHeight="17.0" prefWidth="27.0" text="Bj" textFill="#ffe100" visible="false">
          <font>
             <Font name="Arial Black" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lbBlackjackJogador" layoutX="901.0" layoutY="739.0" prefHeight="17.0" prefWidth="27.0" text="Bj" textFill="#ffe100" visible="false">
+      <Label fx:id="lbBlackjackJogador" layoutX="770.0" layoutY="771.0" prefHeight="17.0" prefWidth="27.0" text="Bj" textFill="#ffe100">
          <font>
             <Font name="Arial Black" size="18.0" />
          </font>
@@ -62,6 +76,10 @@
             <Font size="60.0" />
          </font>
       </Label>
-      <Button layoutX="125.0" layoutY="798.0" mnemonicParsing="false" onAction="#restart" text="Restart" />
+      <Button layoutX="125.0" layoutY="798.0" mnemonicParsing="false" onAction="#restart" text="Restart">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
