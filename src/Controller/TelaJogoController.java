@@ -206,11 +206,38 @@ public class TelaJogoController {
 
     private void turnoDealer(){
     	exibirCartasDealer(blackjack.getDealer().getMao(), false);
+    	setValorMao(false); //não é inicio de partida
 		while(blackjack.getDealer().valorMao()<17) {
 			blackjack.getDealer().puxarCarta();
 			exibirCartasDealer(blackjack.getDealer().getMao(), false);
+			setValorMao(false); //não é inicio de partida
 		}
 		
+		if(blackjack.getDealer().valorMao() > 21) {
+			statusEndGame.setText("Vitória");
+			statusEndGame.setStyle("-fx-text-fill: gold");
+			endGame();
+		}
+		else {
+			if(blackjack.getDealer().valorMao() == 21) {
+				lbBlackjackDealer.setVisible(true);
+			}
+			if(blackjack.getDealer().valorMao() > blackjack.getJogador().valorMao()) {
+				statusEndGame.setText("Derrota");
+				statusEndGame.setStyle("-fx-text-fill: red");
+				endGame();
+			}
+			else if(blackjack.getDealer().valorMao() == blackjack.getJogador().valorMao()) {
+				statusEndGame.setText("Empate");
+				statusEndGame.setStyle("-fx-text-fill: white");
+				endGame();
+			}
+			else {
+				statusEndGame.setText("Vitória");
+				statusEndGame.setStyle("-fx-text-fill: gold");
+				endGame();
+			}
+		}
 	}
 	@FXML
     void puxarCarta(ActionEvent event) {
@@ -243,6 +270,8 @@ public class TelaJogoController {
 		}
 		bntManter.setDisable(false);
 		bntPuxarCarta.setDisable(false);
+		statusEndGame.setText(null);
+		pontosEndGame.setText(null);
 		initialize(blackjack.getJogador().getNome());
     }
 	

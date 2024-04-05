@@ -71,7 +71,7 @@ public class Baralho {
                          mapCarta.put(carta, 10);
                          break;
                      case "A":
-                         mapCarta.put(carta, 11);
+                         mapCarta.put(carta, 1);
                          break;
                 }
             }
