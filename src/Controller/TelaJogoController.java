@@ -1,5 +1,10 @@
 package Controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import Model.Baralho.Carta;
 import Model.Blackjack;
@@ -112,6 +117,10 @@ public class TelaJogoController {
 	static ImageView[] imgCartasDealer = new ImageView[11];
 
 	static Blackjack blackjack;
+	static int sequenciaVitorias = 0;
+	static int sequenciaDerrotas = 0;
+	static boolean primeiraPartida = true;
+	static String path = "";
 
 	private void preencherVetorImageViewJogador() {
 		imgCartasJogador[0] = carta1Jogador;
@@ -148,9 +157,21 @@ public class TelaJogoController {
 
 		// crio o jogo e suas configurações iniciais básicas, como nome e etc
 		blackjack = new Blackjack(nomeJogadorString, "Dealer");
+		
+		if(primeiraPartida) {
+			path = "/blackjack/src/arquivoJogador/pontosJogadores.txt"; //path do arquivo
+			try {
+				buscarJogadorArquivo(nomeJogadorString, path);
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			primeiraPartida = false;
+		}
+		
 		// setando os nomes dos jogadores nos campos de nomes
 		nomeDealer.setText(blackjack.getDealer().getNome());
-		nomeJogador.setText(blackjack.getJogador().getNome());
+		nomeJogador.setText(blackjack.getJogador().getNome() + "(" + blackjack.getJogador().getPontos() + ")");
+		System.out.println(blackjack.getJogador().getPontos());
 
 		// os jogadores já inicializaram logicamente suas mãos, agora irei exibir na
 		// tela o valor acumulado das cartas de suas mãos
@@ -161,6 +182,34 @@ public class TelaJogoController {
 		exibirCartasJogador(blackjack.getJogador().getMao());
 		exibirCartasDealer(blackjack.getDealer().getMao(), true);
 
+	}
+
+	private void buscarJogadorArquivo(String nomeJogador, String path) throws IOException {
+
+		BufferedReader br = new BufferedReader( new FileReader(path) );
+		boolean encontrouJogador = false;
+		String linha = "";
+		String[] linhaSplit;
+		while((linha = br.readLine()) != null) {
+			linhaSplit = linha.split(":");
+			if(linhaSplit[0].equals(nomeJogador)) {
+				encontrouJogador = true;
+				try {
+					blackjack.getJogador().setPontos(Integer.parseInt(linhaSplit[1]));
+				}catch(NumberFormatException e) {
+					e.printStackTrace();
+				}
+				catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		br.close();
+		if(!encontrouJogador) {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(path));
+			bw.append(nomeJogador + ":0"); //0, pois sua pontuação ainda é zero
+			bw.close();
+		}
 	}
 
 	void setValorMaoDealer(boolean inicioDePartida) throws Exception {
@@ -215,6 +264,9 @@ public class TelaJogoController {
 		if (blackjack.getDealer().valorMao() > 21) {
 			statusEndGame.setText("Vitória");
 			statusEndGame.setStyle("-fx-text-fill: gold");
+			sequenciaVitorias +=1;
+			sequenciaDerrotas = 0;
+			pontosEndGame.setText("Ganhou " + blackjack.getJogador().pontuacaoVitoria(sequenciaVitorias) + " Pontos");
 			endGame();
 		} else {
 			if (blackjack.getDealer().valorMao() == 21) {
@@ -223,6 +275,9 @@ public class TelaJogoController {
 			if (blackjack.getDealer().valorMao() > blackjack.getJogador().valorMao()) {
 				statusEndGame.setText("Derrota");
 				statusEndGame.setStyle("-fx-text-fill: red");
+				sequenciaVitorias = 0;
+				sequenciaDerrotas += 1;
+				pontosEndGame.setText("Perdeu " + blackjack.getJogador().pontuacaoDerrota(sequenciaDerrotas) + " Pontos");
 				endGame();
 			} else if (blackjack.getDealer().valorMao() == blackjack.getJogador().valorMao()) {
 				statusEndGame.setText("Empate");
@@ -231,6 +286,9 @@ public class TelaJogoController {
 			} else {
 				statusEndGame.setText("Vitória");
 				statusEndGame.setStyle("-fx-text-fill: gold");
+				sequenciaVitorias +=1;
+				sequenciaDerrotas = 0;
+				pontosEndGame.setText("Ganhou " + blackjack.getJogador().pontuacaoVitoria(sequenciaVitorias) + " Pontos");
 				endGame();
 			}
 		}
@@ -248,6 +306,9 @@ public class TelaJogoController {
 			} else if (blackjack.getJogador().valorMao() > 21) {
 				statusEndGame.setText("Derrota");
 				statusEndGame.setStyle("-fx-text-fill: red");
+				sequenciaVitorias=0;
+				sequenciaDerrotas+=1;
+				pontosEndGame.setText("Perdeu " + blackjack.getJogador().pontuacaoDerrota(sequenciaDerrotas) + " Pontos");
 				endGame();
 			}
 		}
@@ -258,6 +319,16 @@ public class TelaJogoController {
 	void endGame() {
 		bntManter.setDisable(true);
 		bntPuxarCarta.setDisable(true);
+		//atualizo a pontuação na tela
+		nomeJogador.setText(blackjack.getJogador().getNome() + "(" + blackjack.getJogador().getPontos() + ")");
+		//atualizo a pontuação no arquivo
+		atualizarPontuacaoArquivo(blackjack.getJogador().getPontos());
+		
+	}
+
+	private void atualizarPontuacaoArquivo(int pontos) {
+		
+		
 	}
 
 	@FXML

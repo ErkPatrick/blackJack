@@ -8,6 +8,7 @@ public class Jogador {
 	private String nome;
 	ListaEncadeada<Carta> mao = new ListaEncadeada<Carta>();
 	private int somatorioMao = 0;
+	private int pontos;
 	static Baralho baralho;
 
 	public Jogador(String nomeJogador) throws Exception {
@@ -23,6 +24,13 @@ public class Jogador {
 	public void setNome(String nome) {
 		if (nome != null && !nome.isEmpty())
 			this.nome = nome;
+	}
+	public int getPontos() {
+		return pontos;
+	}
+
+	public void setPontos(int pontos) {
+		this.pontos += pontos;
 	}
 
 	public List<Carta> getMao() {
@@ -47,8 +55,12 @@ public class Jogador {
 		mao.add(baralho.pilhaBaralho.pop());
 		somatorioMao += baralho.mapCarta.get(mao.get(mao.size() - 1));
 	}
-
-	public void manter() {
-
+	public int pontuacaoVitoria(int qtdVitorias) {
+		setPontos(qtdVitorias*100);
+		return qtdVitorias*100;
+	}
+	public int pontuacaoDerrota(int qtdDerrotas) {
+		setPontos(qtdDerrotas*-100);
+		return qtdDerrotas*-100;
 	}
 }
