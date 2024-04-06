@@ -1,9 +1,9 @@
 package Model;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Stack;
+import EstruturasDados.pilha.Pilha;
+import java.util.Random;
 
 public class Baralho {
 	public class Carta {
@@ -21,14 +21,14 @@ public class Baralho {
 	}
 
 	Map<Carta, Integer> mapCarta = new HashMap<Carta, Integer>();
-	Stack<Carta> pilhaBaralho = new Stack<Carta>(); // não declaro como static pois todo baralho terá sua pilha
+	Pilha<Carta> pilhaBaralho = new Pilha<Carta>(52); // não declaro como static pois todo baralho terá sua pilha
 
-	public Baralho() {
+	public Baralho() throws Exception {
 		inicializarBaralho();
 		embaralharCartas();
 	}
 
-	public void inicializarBaralho() {
+	public void inicializarBaralho() throws Exception {
 		String[] naipes = { "Paus", "Ouros", "Copas", "Espadas" };
 		String[] valores = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
 
@@ -81,7 +81,29 @@ public class Baralho {
 		}
 	}
 
-	public void embaralharCartas() {
-		Collections.shuffle(pilhaBaralho);
+	public void embaralharCartas() throws Exception {
+		
+	    Carta[] vetTemp = new Carta[52];
+	    
+	    // Copiando as cartas da pilhaBaralho para vetTemp
+	    for (int i = 0; i < vetTemp.length; i++) {
+	        vetTemp[i] = pilhaBaralho.pop();
+	    }
+	    
+	    // Embaralhar as cartas
+	    Random random = new Random();
+	    for (int i = vetTemp.length - 1; i > 0; i--) {
+	        int index = random.nextInt(i + 1); // Gera um número aleatório entre 0 e i (inclusive)
+	        
+	        // Troca as cartas de posição
+	        Carta cartaTemp = vetTemp[index]; //carta aleatória
+	        vetTemp[index] = vetTemp[i]; //vetTemp[Index] recebe a ultima carta
+	        vetTemp[i] = cartaTemp; //a ultima posição agora recebe a carta aleatória, que não poderá masi ser acessada(repetida) pois no final da iteração teremos i--
+	    }
+	    
+	    // Colocar as cartas embaralhadas de volta na pilha
+	    for (Carta carta : vetTemp) {
+	        pilhaBaralho.push(carta);
+	    }
 	}
 }

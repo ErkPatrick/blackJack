@@ -54,7 +54,19 @@ public class DoubleLinkedList<T> implements interfaceList<T> {
 		}
 		size++;
 	}
-
+	@Override
+	public void add(T value) {
+		Node novo = new Node(value);
+		if (size == 0) {
+			head = novo;
+			tail = novo;
+		} else {
+			novo.prev = tail;
+			tail.next = novo;
+			tail = novo;
+		}
+		size++;
+	}
 	@Override
 	public boolean addAfter(T dado, T crit) throws Exception {
 		Node p = searchNode(crit);
@@ -78,6 +90,7 @@ public class DoubleLinkedList<T> implements interfaceList<T> {
 			return true;
 		}
 	}
+	
 
 	@Override
 	public T peekFirst() throws Exception {
@@ -227,6 +240,20 @@ public class DoubleLinkedList<T> implements interfaceList<T> {
 	@Override
 	public boolean isEmpty() {
 		return size == 0;
+	}
+
+	@Override
+	public T get(int index) throws Exception {
+		Node p = head;
+		for(int i = 0; i<index; i++) {
+			p = p.next;
+		}
+		return p.data;
+	}
+
+	@Override
+	public int size() {
+		return size;
 	}
 
 }

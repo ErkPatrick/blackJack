@@ -26,14 +26,14 @@ public class TelaInicialController {
 	}
 
 	@FXML
-	void iniciarJogo(ActionEvent event) throws IOException {
+	void iniciarJogo(ActionEvent event) throws IOException, Exception{
 
 		String nomeJogadorString = nomeJogador.getText();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/telaJogo.fxml"));
 		root = loader.load();
 		TelaJogoController telaJogoController = loader.getController();
 		telaJogoController.initialize(nomeJogadorString); // instancio um objeto do tipo do controller que quero enviar
-															// uma informação e chamo o método, depois a tela mudada
+															// uma informação e chamo o método, depois a tela é mudada
 															// normalmente
 
 		// trocar tela

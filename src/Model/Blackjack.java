@@ -5,7 +5,7 @@ public class Blackjack {
 	private Jogador jogador;
 	private Jogador dealer;
 
-	public Blackjack(String nomeJogador, String nomeDealer) {
+	public Blackjack(String nomeJogador, String nomeDealer) throws Exception {
 		jogador = new Jogador(nomeJogador);
 		dealer = new Jogador(nomeDealer);
 	}

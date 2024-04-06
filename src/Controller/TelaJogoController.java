@@ -1,7 +1,6 @@
 package Controller;
 
 import java.util.List;
-import java.time.*;
 import Model.Baralho.Carta;
 import Model.Blackjack;
 import javafx.event.ActionEvent;
@@ -142,7 +141,7 @@ public class TelaJogoController {
 		imgCartasDealer[10] = carta11Dealer;
 	}
 
-	public void initialize(String nomeJogadorString) {
+	public void initialize(String nomeJogadorString) throws Exception {
 		// inicializo os vetores de imagens para melhor manipulação
 		preencherVetorImageViewJogador();
 		preencherVetorImageViewDealer();
@@ -155,27 +154,25 @@ public class TelaJogoController {
 
 		// os jogadores já inicializaram logicamente suas mãos, agora irei exibir na
 		// tela o valor acumulado das cartas de suas mãos
-		setValorMao(true);
-
+		setValorMaoDealer(true);
+		setValorMaoJogador();
+		
 		// exibir cartas iniciais dos jogadores
 		exibirCartasJogador(blackjack.getJogador().getMao());
 		exibirCartasDealer(blackjack.getDealer().getMao(), true);
 
 	}
 
-	void setValorMao(boolean inicioDePartida) {
+	void setValorMaoDealer(boolean inicioDePartida) throws Exception {
 		if (inicioDePartida) {
-			int valorMaoDealer = (blackjack.getDealer().valorMao()) - blackjack.getDealer().valorMao(1);// não pode
-																										// exibir a soma
-																										// total da mão
-																										// do dealer
-																										// inicialmente
+			int valorMaoDealer = (blackjack.getDealer().valorMao()) - blackjack.getDealer().valorMao(1);// não pode exibir a soma total da mão do dealer inicialmente																							// do dealer inicialmente														
 			somaCartasDealer.setText("" + valorMaoDealer);
-			somaCartasJogador.setText("" + blackjack.getJogador().valorMao());
 		} else {
 			somaCartasDealer.setText("" + blackjack.getDealer().valorMao());
-			somaCartasJogador.setText("" + blackjack.getJogador().valorMao());
 		}
+	}
+	void setValorMaoJogador() throws Exception {
+		somaCartasJogador.setText("" + blackjack.getJogador().valorMao());
 	}
 
 	private void exibirCartasJogador(List<Carta> mao) {
@@ -200,19 +197,19 @@ public class TelaJogoController {
 	}
 
 	@FXML
-	void manterMao(ActionEvent event) {
+	void manterMao(ActionEvent event) throws Exception {
 		bntManter.setDisable(true);
 		bntPuxarCarta.setDisable(true);
 		turnoDealer();
 	}
 
-	private void turnoDealer() {
+	private void turnoDealer() throws Exception {
 		exibirCartasDealer(blackjack.getDealer().getMao(), false);
-		setValorMao(false); // não é inicio de partida
+		setValorMaoDealer(false); // não é inicio de partida
 		while (blackjack.getDealer().valorMao() < 17) {
 			blackjack.getDealer().puxarCarta();
 			exibirCartasDealer(blackjack.getDealer().getMao(), false);
-			setValorMao(false); // não é inicio de partida
+			setValorMaoDealer(false); // não é inicio de partida
 		}
 
 		if (blackjack.getDealer().valorMao() > 21) {
@@ -240,7 +237,7 @@ public class TelaJogoController {
 	}
 
 	@FXML
-	void puxarCarta(ActionEvent event) {
+	void puxarCarta(ActionEvent event) throws Exception {
 		if (blackjack.getJogador().valorMao() < 21) {
 			blackjack.getJogador().puxarCarta();
 			exibirCartasJogador(blackjack.getJogador().getMao());
@@ -255,7 +252,7 @@ public class TelaJogoController {
 			}
 		}
 
-		setValorMao(false); // não é inicio de partida
+		setValorMaoJogador(); // não é inicio de partida
 	}
 
 	void endGame() {
@@ -264,7 +261,7 @@ public class TelaJogoController {
 	}
 
 	@FXML
-	void restart(ActionEvent event) {
+	void restart(ActionEvent event) throws Exception {
 		for (int i = 0; i < imgCartasDealer.length; i++) {
 			imgCartasDealer[i].setImage(null);
 			imgCartasJogador[i].setImage(null);

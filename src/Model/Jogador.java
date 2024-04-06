@@ -1,17 +1,16 @@
 package Model;
 
-import java.util.ArrayList;
 import java.util.List;
-
+import EstruturasDados.LinkedList.ListaEncadeada;
 import Model.Baralho.Carta;
 
 public class Jogador {
 	private String nome;
-	List<Carta> mao = new ArrayList<Carta>();
+	ListaEncadeada<Carta> mao = new ListaEncadeada<Carta>();
 	private int somatorioMao = 0;
 	static Baralho baralho;
 
-	public Jogador(String nomeJogador) {
+	public Jogador(String nomeJogador) throws Exception {
 		baralho = new Baralho();
 		setNome(nomeJogador);
 		inicializarMao();
@@ -34,17 +33,17 @@ public class Jogador {
 		return somatorioMao;
 	}
 
-	public int valorMao(int i) {
+	public int valorMao(int i) throws Exception {
 		return baralho.mapCarta.get(mao.get(i));
 	}
 
-	public void inicializarMao() {
+	public void inicializarMao() throws Exception {
 		mao.add(baralho.pilhaBaralho.pop());
 		mao.add(baralho.pilhaBaralho.pop());
 		somatorioMao = baralho.mapCarta.get(mao.get(0)) + baralho.mapCarta.get(mao.get(1));
 	}
 
-	public void puxarCarta() {
+	public void puxarCarta() throws Exception {
 		mao.add(baralho.pilhaBaralho.pop());
 		somatorioMao += baralho.mapCarta.get(mao.get(mao.size() - 1));
 	}
