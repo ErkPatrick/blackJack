@@ -1,4 +1,4 @@
-Bruno:-100
+Bruno:1100
 Derick:3400
 Patrick:3600
-p:0
+More:700

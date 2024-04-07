@@ -7,17 +7,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import EstruturasDados.Fila.Fila;
-import EstruturasDados.listaEncadeada.Main;
 import Model.Baralho.Carta;
 import Model.Blackjack;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class TelaJogoController {
 
@@ -485,7 +489,15 @@ public class TelaJogoController {
 	}
 	@FXML
     void voltarTelaInicial(MouseEvent event) throws IOException {
-    	
+		Stage stage;
+		Scene scene;
+		Parent root;
+		root = FXMLLoader.load(getClass().getResource("../View/telaInicial.fxml"));
+	    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+	    scene = new Scene(root);
+	    stage.setTitle("Tela Inicial");
+	    stage.setScene(scene);
+	    stage.show();
     }
 
 }
