@@ -158,15 +158,15 @@ public class TelaJogoController {
 		// crio o jogo e suas configurações iniciais básicas, como nome e etc
 		blackjack = new Blackjack(nomeJogadorString, "Dealer");
 		
-		if(primeiraPartida) {
-			path = "/blackjack/src/arquivoJogador/pontosJogadores.txt"; //path do arquivo
-			try {
-				buscarJogadorArquivo(nomeJogadorString, path);
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
-			primeiraPartida = false;
+		//acessará o arquivo toda vez, pois temos que atualizar seus pontos pois blackjack agr aponta para outro espaço da memoria e os jogadores perderam seus pontos
+		path = "/blackjack/src/arquivoJogador/pontosJogadores.txt"; //path do arquivo
+		try {
+			buscarJogadorArquivo(nomeJogadorString);
+		}catch(IOException e) {
+			e.printStackTrace();
 		}
+		primeiraPartida = false;
+
 		
 		// setando os nomes dos jogadores nos campos de nomes
 		nomeDealer.setText(blackjack.getDealer().getNome());
@@ -184,8 +184,7 @@ public class TelaJogoController {
 
 	}
 
-	private void buscarJogadorArquivo(String nomeJogador, String path) throws IOException {
-
+	private void buscarJogadorArquivo(String nomeJogador) throws IOException {
 		BufferedReader br = new BufferedReader( new FileReader(path) );
 		boolean encontrouJogador = false;
 		String linha = "";
@@ -206,8 +205,8 @@ public class TelaJogoController {
 		}
 		br.close();
 		if(!encontrouJogador) {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(path));
-			bw.append(nomeJogador + ":0"); //0, pois sua pontuação ainda é zero
+			BufferedWriter bw = new BufferedWriter(new FileWriter(path, true));//escrever no final sem sobrescrever
+			bw.append(nomeJogador + ":0\n"); //0, pois sua pontuação ainda é zero
 			bw.close();
 		}
 	}
@@ -267,6 +266,7 @@ public class TelaJogoController {
 			sequenciaVitorias +=1;
 			sequenciaDerrotas = 0;
 			pontosEndGame.setText("Ganhou " + blackjack.getJogador().pontuacaoVitoria(sequenciaVitorias) + " Pontos");
+			pontosEndGame.setStyle("-fx-text-fill: gold");
 			endGame();
 		} else {
 			if (blackjack.getDealer().valorMao() == 21) {
@@ -278,6 +278,7 @@ public class TelaJogoController {
 				sequenciaVitorias = 0;
 				sequenciaDerrotas += 1;
 				pontosEndGame.setText("Perdeu " + blackjack.getJogador().pontuacaoDerrota(sequenciaDerrotas) + " Pontos");
+				pontosEndGame.setStyle("-fx-text-fill: red");
 				endGame();
 			} else if (blackjack.getDealer().valorMao() == blackjack.getJogador().valorMao()) {
 				statusEndGame.setText("Empate");
@@ -289,6 +290,7 @@ public class TelaJogoController {
 				sequenciaVitorias +=1;
 				sequenciaDerrotas = 0;
 				pontosEndGame.setText("Ganhou " + blackjack.getJogador().pontuacaoVitoria(sequenciaVitorias) + " Pontos");
+				pontosEndGame.setStyle("-fx-text-fill: gold");
 				endGame();
 			}
 		}
@@ -304,16 +306,18 @@ public class TelaJogoController {
 				manterMao(event);
 				lbBlackjackJogador.setVisible(true);
 			} else if (blackjack.getJogador().valorMao() > 21) {
+				exibirCartasDealer(blackjack.getDealer().getMao(), false);
 				statusEndGame.setText("Derrota");
 				statusEndGame.setStyle("-fx-text-fill: red");
 				sequenciaVitorias=0;
 				sequenciaDerrotas+=1;
 				pontosEndGame.setText("Perdeu " + blackjack.getJogador().pontuacaoDerrota(sequenciaDerrotas) + " Pontos");
+				pontosEndGame.setStyle("-fx-text-fill: red");
 				endGame();
 			}
 		}
 
-		setValorMaoJogador(); // não é inicio de partida
+		setValorMaoJogador();
 	}
 
 	void endGame() {
@@ -322,13 +326,48 @@ public class TelaJogoController {
 		//atualizo a pontuação na tela
 		nomeJogador.setText(blackjack.getJogador().getNome() + "(" + blackjack.getJogador().getPontos() + ")");
 		//atualizo a pontuação no arquivo
-		atualizarPontuacaoArquivo(blackjack.getJogador().getPontos());
-		
+		try {
+			atualizarPontuacaoArquivo(blackjack.getJogador().getNome(), blackjack.getJogador().getPontos());
+		} catch (IOException e) {
+			System.out.println("Erro ao atualizar pontuação no arquivo");
+			e.printStackTrace();
+		}catch(Exception e) {
+			System.out.println("Erro generalizado ao atualizar pontuação no arquivo");
+			e.printStackTrace();
+		}
 	}
 
-	private void atualizarPontuacaoArquivo(int pontos) {
+	private void atualizarPontuacaoArquivo(String nomeJogador,int pontos) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(path));
+		br.mark(1000);
+		String linha = "";
+		int numJogadores = 0;
+		while((linha = br.readLine()) != null) {
+			numJogadores+=1;
+		}
 		
+		String[][]linhaSplit = new String[numJogadores][2];
+		while((linha = br.readLine()) != null) {
+			numJogadores+=1;
+		}
+		br.reset();
 		
+		for(int i = 0; i<numJogadores; i++) {
+			for(int j = 0; j<2; j++) {
+				if((linha = br.readLine()) != null){
+					linhaSplit[i] = linha.split(":");
+					if(linhaSplit[i][0].equals(nomeJogador)) {
+						linhaSplit[i][1] = "" + pontos;
+					}
+				}
+			}
+		}
+		br.close();
+		BufferedWriter bw = new BufferedWriter(new FileWriter(path));
+		for(int i = 0; i<numJogadores; i++) {
+			bw.append(linhaSplit[i][0] + ":" + linhaSplit[i][1] + "\n");
+		}
+		bw.close();
 	}
 
 	@FXML
