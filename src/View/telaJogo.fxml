@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1900.0" style="-fx-background-color: #2E8B57;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TelaJogoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #2E8B57;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TelaJogoController">
    <children>
       <Label fx:id="statusEndGame" layoutX="327.0" layoutY="339.0" prefHeight="141.0" prefWidth="396.0">
          <font>
             <Font size="96.0" />
          </font>
       </Label>
-      <Label fx:id="nomeJogador" layoutX="732.0" layoutY="855.0" prefHeight="31.0" prefWidth="178.0" text="Nome do Jogador" textFill="WHITE">
+      <Label fx:id="nomeJogador" layoutX="717.0" layoutY="878.0" prefHeight="31.0" prefWidth="178.0" text="Nome do Jogador" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="21.0" />
          </font></Label>
@@ -27,7 +27,7 @@
          <font>
             <Font name="System Bold" size="21.0" />
          </font></Label>
-      <Label fx:id="nomeDealer" layoutX="736.0" layoutY="14.0" prefHeight="31.0" prefWidth="171.0" text="Nome do Dealer" textFill="WHITE">
+      <Label fx:id="nomeDealer" layoutX="721.0" layoutY="14.0" prefHeight="31.0" prefWidth="171.0" text="Nome do Dealer" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="21.0" />
          </font></Label>
@@ -48,23 +48,17 @@
       <ImageView fx:id="carta8Jogador" fitHeight="181.5" fitWidth="125.0" layoutX="1009.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="carta9Jogador" fitHeight="181.5" fitWidth="125.0" layoutX="1146.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="carta10Jogador" fitHeight="181.5" fitWidth="125.0" layoutX="1285.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="carta11Jogador" fitHeight="181.5" fitWidth="125.0" layoutX="1421.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/BACK.png" />
-         </image></ImageView>
+      <ImageView fx:id="carta11Jogador" fitHeight="181.5" fitWidth="125.0" layoutX="1421.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="carta8Dealer" fitHeight="181.5" fitWidth="125.0" layoutX="1009.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="carta9Dealer" fitHeight="181.5" fitWidth="125.0" layoutX="1146.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="carta10Dealer" fitHeight="181.5" fitWidth="125.0" layoutX="1285.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="carta11Dealer" fitHeight="181.5" fitWidth="125.0" layoutX="1421.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/BACK.png" />
-         </image></ImageView>
-      <Button fx:id="bntPuxarCarta" layoutX="661.0" layoutY="818.0" mnemonicParsing="false" onAction="#puxarCarta" style="-fx-background-color: #00CED1;" text="Puxar Carta">
+      <ImageView fx:id="carta11Dealer" fitHeight="181.5" fitWidth="125.0" layoutX="1421.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="bntPuxarCarta" layoutX="661.0" layoutY="807.0" mnemonicParsing="false" onAction="#puxarCarta" prefHeight="48.0" prefWidth="103.0" style="-fx-background-color: #00CED1;" text="Puxar Carta">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="bntManter" layoutX="816.0" layoutY="818.0" mnemonicParsing="false" onAction="#manterMao" style="-fx-background-color: yellow;" text="Manter">
+      <Button fx:id="bntManter" layoutX="806.0" layoutY="807.0" mnemonicParsing="false" onAction="#manterMao" prefHeight="48.0" prefWidth="103.0" style="-fx-background-color: yellow;" text="Manter">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -89,10 +83,30 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <TextArea fx:id="txaRanking" layoutX="1561.0" layoutY="8.0" prefHeight="884.0" prefWidth="333.0" style="-fx-border-color: blue;" text="exemplo">
+      <TextArea fx:id="txaRanking" layoutX="1561.0" layoutY="139.0" prefHeight="754.0" prefWidth="342.0" style="-fx-border-color: blue;">
          <font>
             <Font size="24.0" />
          </font>
       </TextArea>
+      <Label fx:id="lb1lugar" layoutX="1561.0" layoutY="23.0" prefHeight="35.0" prefWidth="333.0" style="-fx-background-color: white; -fx-text-fill: gold;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb2lugar" layoutX="1561.0" layoutY="58.0" prefHeight="9.0" prefWidth="333.0" style="-fx-background-color: white; -fx-text-fill: green;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb3lugar" layoutX="1561.0" layoutY="93.0" prefHeight="35.0" prefWidth="333.0" style="-fx-background-color: white; -fx-text-fill: red;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="64.0" fitWidth="67.0" layoutY="1.0" onMouseClicked="#voltarTelaInicial" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/setaVoltar.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

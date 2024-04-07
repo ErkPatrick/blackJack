@@ -6,121 +6,137 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import EstruturasDados.Fila.Fila;
+import EstruturasDados.listaEncadeada.Main;
 import Model.Baralho.Carta;
 import Model.Blackjack;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 public class TelaJogoController {
 
-	@FXML
-	private Button bntManter;
+    @FXML
+    private Button bntManter;
 
-	@FXML
-	private Button bntPuxarCarta;
+    @FXML
+    private Button bntPuxarCarta;
 
-	@FXML
-	private ImageView carta10Dealer;
+    @FXML
+    private ImageView carta10Dealer;
 
-	@FXML
-	private ImageView carta10Jogador;
+    @FXML
+    private ImageView carta10Jogador;
 
-	@FXML
-	private ImageView carta11Dealer;
+    @FXML
+    private ImageView carta11Dealer;
 
-	@FXML
-	private ImageView carta11Jogador;
+    @FXML
+    private ImageView carta11Jogador;
 
-	@FXML
-	private ImageView carta1Dealer;
+    @FXML
+    private ImageView carta1Dealer;
 
-	@FXML
-	private ImageView carta1Jogador;
+    @FXML
+    private ImageView carta1Jogador;
 
-	@FXML
-	private ImageView carta2Dealer;
+    @FXML
+    private ImageView carta2Dealer;
 
-	@FXML
-	private ImageView carta2Jogador;
+    @FXML
+    private ImageView carta2Jogador;
 
-	@FXML
-	private ImageView carta3Dealer;
+    @FXML
+    private ImageView carta3Dealer;
 
-	@FXML
-	private ImageView carta3Jogador;
+    @FXML
+    private ImageView carta3Jogador;
 
-	@FXML
-	private ImageView carta4Dealer;
+    @FXML
+    private ImageView carta4Dealer;
 
-	@FXML
-	private ImageView carta4Jogador;
+    @FXML
+    private ImageView carta4Jogador;
 
-	@FXML
-	private ImageView carta5Dealer;
+    @FXML
+    private ImageView carta5Dealer;
 
-	@FXML
-	private ImageView carta5Jogador;
+    @FXML
+    private ImageView carta5Jogador;
 
-	@FXML
-	private ImageView carta6Dealer;
+    @FXML
+    private ImageView carta6Dealer;
 
-	@FXML
-	private ImageView carta6Jogador;
+    @FXML
+    private ImageView carta6Jogador;
 
-	@FXML
-	private ImageView carta7Dealer;
+    @FXML
+    private ImageView carta7Dealer;
 
-	@FXML
-	private ImageView carta7Jogador;
+    @FXML
+    private ImageView carta7Jogador;
 
-	@FXML
-	private ImageView carta8Dealer;
+    @FXML
+    private ImageView carta8Dealer;
 
-	@FXML
-	private ImageView carta8Jogador;
+    @FXML
+    private ImageView carta8Jogador;
 
-	@FXML
-	private ImageView carta9Dealer;
+    @FXML
+    private ImageView carta9Dealer;
 
-	@FXML
-	private ImageView carta9Jogador;
+    @FXML
+    private ImageView carta9Jogador;
 
-	@FXML
-	private Label lbBlackjackDealer;
+    @FXML
+    private Label lb1lugar;
 
-	@FXML
-	private Label lbBlackjackJogador;
+    @FXML
+    private Label lb2lugar;
 
-	@FXML
-	private Label nomeDealer;
+    @FXML
+    private Label lb3lugar;
 
-	@FXML
-	private Label nomeJogador;
+    @FXML
+    private Label lbBlackjackDealer;
 
-	@FXML
-	private Label pontosEndGame;
+    @FXML
+    private Label lbBlackjackJogador;
 
-	@FXML
-	private Label somaCartasDealer;
+    @FXML
+    private Label nomeDealer;
 
-	@FXML
-	private Label somaCartasJogador;
+    @FXML
+    private Label nomeJogador;
 
-	@FXML
-	private Label statusEndGame;
+    @FXML
+    private Label pontosEndGame;
+
+    @FXML
+    private Label somaCartasDealer;
+
+    @FXML
+    private Label somaCartasJogador;
+
+    @FXML
+    private Label statusEndGame;
+
+    @FXML
+    private TextArea txaRanking;
+
 
 	static ImageView[] imgCartasJogador = new ImageView[11];
 	static ImageView[] imgCartasDealer = new ImageView[11];
 
 	static Blackjack blackjack;
 	static int sequenciaVitorias = 0;
-	static int sequenciaDerrotas = 0;
-	static boolean primeiraPartida = true;
 	static String path = "";
+	
 
 	private void preencherVetorImageViewJogador() {
 		imgCartasJogador[0] = carta1Jogador;
@@ -162,10 +178,11 @@ public class TelaJogoController {
 		path = "/blackjack/src/arquivoJogador/pontosJogadores.txt"; //path do arquivo
 		try {
 			buscarJogadorArquivo(nomeJogadorString);
+			exibirRankingJogadores();
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		primeiraPartida = false;
+		
 
 		
 		// setando os nomes dos jogadores nos campos de nomes
@@ -182,6 +199,95 @@ public class TelaJogoController {
 		exibirCartasDealer(blackjack.getDealer().getMao(), true);
 
 	}
+
+	private void exibirRankingJogadores() throws Exception {
+		class JogadorArquivo{
+			String nome;
+			int pontos;
+			JogadorArquivo(){
+				nome = "";
+				pontos = 0;
+			}
+			public String getNome() {
+				return nome;
+			}
+			public void setNome(String nome) {
+				this.nome = nome;
+			}
+			public int getPontos() {
+				return pontos;
+			}
+			public void setPontos(int pontos) {
+				this.pontos = pontos;
+			}
+		}
+		BufferedReader br = new BufferedReader(new FileReader(path));
+		Fila<JogadorArquivo> filaRanking = new Fila<JogadorArquivo>(15); //fila onde será inserido em ordem decrescente os jogadores com maiores pontos
+		JogadorArquivo[] jogadoresArquivo = new JogadorArquivo[15];
+		String linha = "";
+		String linhaSplit[];
+		int qtdJogadoresArquivo = 0;
+		for(int i = 0; i<jogadoresArquivo.length && (linha = br.readLine()) != null; i++) {	
+			jogadoresArquivo[i] = new JogadorArquivo();
+			linhaSplit = linha.split(":");
+			jogadoresArquivo[i].setNome(linhaSplit[0]);
+			jogadoresArquivo[i].setPontos(Integer.parseInt(linhaSplit[1]));
+			qtdJogadoresArquivo+=1;
+		}
+		br.close();
+		
+		//algoritmo de ordenação insertSort
+//	    int j;
+//		jogadorArquivo eleito;
+//	    int size = qtdJogadoresArquivo;
+//	    
+//	    // LOOP EXTERNO
+//	    for (int i = 0; i < size; i++)
+//	    {	    	
+//	        eleito = jogadoresArquivo[i];
+//	        j = i - 1;
+//
+//	        while ( (j>=0) && (eleito.pontos < jogadoresArquivo[j].pontos) ) 
+//	        {
+//	            jogadoresArquivo[j+1] = jogadoresArquivo[j];
+//	            j--;
+//	        }
+//	        jogadoresArquivo[j+1] = eleito;
+//	    }
+		//algoritmo de ordenação bubbleSort otimizado
+		boolean ordenado = false;
+		for(int i = 0; i < qtdJogadoresArquivo-1 && ordenado == false; i++) {
+			ordenado = true;
+			for(int j = 0; j<qtdJogadoresArquivo-1; j++) {
+				if(jogadoresArquivo[j].getPontos() > jogadoresArquivo[j+1].getPontos()) {
+					JogadorArquivo temp = jogadoresArquivo[j];
+					jogadoresArquivo[j] = jogadoresArquivo[j+1];
+					jogadoresArquivo[j+1] = temp;
+					ordenado = false;
+				}
+			}
+		}
+	    for(int i = qtdJogadoresArquivo-1; i>=0; i--) {
+	    	filaRanking.add(jogadoresArquivo[i]);
+	    }
+	    for(int i = 0; i<qtdJogadoresArquivo; i++) {
+	    	if(i==0) {
+	    		lb1lugar.setText("1º)" + filaRanking.peek().getNome() + "(" + filaRanking.peek().getPontos() + ")");
+	    	}
+	    	else if(i==1) {
+	    		lb2lugar.setText("2º)" + filaRanking.peek().getNome() + "(" + filaRanking.peek().getPontos() + ")");
+	    	}
+	    	else if(i==2) {
+	    		lb3lugar.setText("3º)" + filaRanking.peek().getNome() + "(" + filaRanking.peek().getPontos() + ")");
+	    	}
+	    	else {
+	    		txaRanking.setText((i+1) + "º)" + filaRanking.peek().getNome() + "(" + filaRanking.peek().getPontos() + ")\n");
+	    	}
+		    filaRanking.remove();
+	    }
+	}
+	
+	
 
 	private void buscarJogadorArquivo(String nomeJogador) throws IOException {
 		BufferedReader br = new BufferedReader( new FileReader(path) );
@@ -263,7 +369,6 @@ public class TelaJogoController {
 			statusEndGame.setText("Vitória");
 			statusEndGame.setStyle("-fx-text-fill: gold");
 			sequenciaVitorias +=1;
-			sequenciaDerrotas = 0;
 			pontosEndGame.setText("Ganhou " + blackjack.getJogador().pontuacaoVitoria(sequenciaVitorias) + " Pontos");
 			pontosEndGame.setStyle("-fx-text-fill: gold");
 			endGame();
@@ -275,7 +380,6 @@ public class TelaJogoController {
 				statusEndGame.setText("Derrota");
 				statusEndGame.setStyle("-fx-text-fill: red");
 				sequenciaVitorias = 0;
-				sequenciaDerrotas += 1;
 				pontosEndGame.setText("Perdeu " + blackjack.getJogador().pontuacaoDerrota() + " Pontos");
 				pontosEndGame.setStyle("-fx-text-fill: red");
 				endGame();
@@ -287,7 +391,6 @@ public class TelaJogoController {
 				statusEndGame.setText("Vitória");
 				statusEndGame.setStyle("-fx-text-fill: gold");
 				sequenciaVitorias +=1;
-				sequenciaDerrotas = 0;
 				pontosEndGame.setText("Ganhou " + blackjack.getJogador().pontuacaoVitoria(sequenciaVitorias) + " Pontos");
 				pontosEndGame.setStyle("-fx-text-fill: gold");
 				endGame();
@@ -309,7 +412,6 @@ public class TelaJogoController {
 				statusEndGame.setText("Derrota");
 				statusEndGame.setStyle("-fx-text-fill: red");
 				sequenciaVitorias=0;
-				sequenciaDerrotas+=1;
 				pontosEndGame.setText("Perdeu " + blackjack.getJogador().pontuacaoDerrota() + " Pontos");
 				pontosEndGame.setStyle("-fx-text-fill: red");
 				endGame();
@@ -327,6 +429,7 @@ public class TelaJogoController {
 		//atualizo a pontuação no arquivo
 		try {
 			atualizarPontuacaoArquivo(blackjack.getJogador().getNome(), blackjack.getJogador().getPontos());
+			exibirRankingJogadores();
 		} catch (IOException e) {
 			System.out.println("Erro ao atualizar pontuação no arquivo");
 			e.printStackTrace();
@@ -380,5 +483,9 @@ public class TelaJogoController {
 		lbBlackjackJogador.setVisible(false);
 		initialize(blackjack.getJogador().getNome());
 	}
+	@FXML
+    void voltarTelaInicial(MouseEvent event) throws IOException {
+    	
+    }
 
 }
