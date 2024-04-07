@@ -1,1 +1,2 @@
-Bruno:-300
+Bruno:-100
+Patrick:2100

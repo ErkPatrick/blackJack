@@ -171,7 +171,6 @@ public class TelaJogoController {
 		// setando os nomes dos jogadores nos campos de nomes
 		nomeDealer.setText(blackjack.getDealer().getNome());
 		nomeJogador.setText(blackjack.getJogador().getNome() + "(" + blackjack.getJogador().getPontos() + ")");
-		System.out.println(blackjack.getJogador().getPontos());
 
 		// os jogadores já inicializaram logicamente suas mãos, agora irei exibir na
 		// tela o valor acumulado das cartas de suas mãos
@@ -277,7 +276,7 @@ public class TelaJogoController {
 				statusEndGame.setStyle("-fx-text-fill: red");
 				sequenciaVitorias = 0;
 				sequenciaDerrotas += 1;
-				pontosEndGame.setText("Perdeu " + blackjack.getJogador().pontuacaoDerrota(sequenciaDerrotas) + " Pontos");
+				pontosEndGame.setText("Perdeu " + blackjack.getJogador().pontuacaoDerrota() + " Pontos");
 				pontosEndGame.setStyle("-fx-text-fill: red");
 				endGame();
 			} else if (blackjack.getDealer().valorMao() == blackjack.getJogador().valorMao()) {
@@ -311,7 +310,7 @@ public class TelaJogoController {
 				statusEndGame.setStyle("-fx-text-fill: red");
 				sequenciaVitorias=0;
 				sequenciaDerrotas+=1;
-				pontosEndGame.setText("Perdeu " + blackjack.getJogador().pontuacaoDerrota(sequenciaDerrotas) + " Pontos");
+				pontosEndGame.setText("Perdeu " + blackjack.getJogador().pontuacaoDerrota() + " Pontos");
 				pontosEndGame.setStyle("-fx-text-fill: red");
 				endGame();
 			}
@@ -337,28 +336,25 @@ public class TelaJogoController {
 		}
 	}
 
+	
 	private void atualizarPontuacaoArquivo(String nomeJogador,int pontos) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(path));
-		br.mark(1000);
+		br.mark(100000);
 		String linha = "";
 		int numJogadores = 0;
 		while((linha = br.readLine()) != null) {
 			numJogadores+=1;
 		}
-		
 		String[][]linhaSplit = new String[numJogadores][2];
 		while((linha = br.readLine()) != null) {
 			numJogadores+=1;
 		}
-		br.reset();
-		
+		br.reset();;
 		for(int i = 0; i<numJogadores; i++) {
-			for(int j = 0; j<2; j++) {
-				if((linha = br.readLine()) != null){
-					linhaSplit[i] = linha.split(":");
-					if(linhaSplit[i][0].equals(nomeJogador)) {
-						linhaSplit[i][1] = "" + pontos;
-					}
+			if((linha = br.readLine()) != null){
+				linhaSplit[i] = linha.split(":");
+				if(linhaSplit[i][0].equals(nomeJogador)) {
+					linhaSplit[i][1] = "" + pontos;
 				}
 			}
 		}

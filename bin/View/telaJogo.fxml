@@ -2,11 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #2E8B57;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TelaJogoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1900.0" style="-fx-background-color: #2E8B57;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TelaJogoController">
    <children>
       <Label fx:id="statusEndGame" layoutX="327.0" layoutY="339.0" prefHeight="141.0" prefWidth="396.0">
          <font>
@@ -46,11 +48,17 @@
       <ImageView fx:id="carta8Jogador" fitHeight="181.5" fitWidth="125.0" layoutX="1009.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="carta9Jogador" fitHeight="181.5" fitWidth="125.0" layoutX="1146.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="carta10Jogador" fitHeight="181.5" fitWidth="125.0" layoutX="1285.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="carta11Jogador" fitHeight="181.5" fitWidth="125.0" layoutX="1421.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="carta11Jogador" fitHeight="181.5" fitWidth="125.0" layoutX="1421.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/BACK.png" />
+         </image></ImageView>
       <ImageView fx:id="carta8Dealer" fitHeight="181.5" fitWidth="125.0" layoutX="1009.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="carta9Dealer" fitHeight="181.5" fitWidth="125.0" layoutX="1146.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="carta10Dealer" fitHeight="181.5" fitWidth="125.0" layoutX="1285.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="carta11Dealer" fitHeight="181.5" fitWidth="125.0" layoutX="1421.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="carta11Dealer" fitHeight="181.5" fitWidth="125.0" layoutX="1421.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/BACK.png" />
+         </image></ImageView>
       <Button fx:id="bntPuxarCarta" layoutX="661.0" layoutY="818.0" mnemonicParsing="false" onAction="#puxarCarta" style="-fx-background-color: #00CED1;" text="Puxar Carta">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -81,5 +89,10 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
+      <TextArea fx:id="txaRanking" layoutX="1561.0" layoutY="8.0" prefHeight="884.0" prefWidth="333.0" style="-fx-border-color: blue;" text="exemplo">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextArea>
    </children>
 </AnchorPane>

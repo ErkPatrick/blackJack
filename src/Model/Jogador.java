@@ -59,8 +59,8 @@ public class Jogador {
 		setPontos(qtdVitorias*100);
 		return qtdVitorias*100;
 	}
-	public int pontuacaoDerrota(int qtdDerrotas) {
-		setPontos(qtdDerrotas*-100);
-		return qtdDerrotas*-100;
+	public int pontuacaoDerrota() {
+		setPontos(-100);
+		return -100;
 	}
 }
