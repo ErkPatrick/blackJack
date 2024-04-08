@@ -10,13 +10,13 @@
    <children>
       <Label layoutX="190.0" layoutY="14.0" text="Blackjack">
          <font>
-            <Font size="45.0" />
+            <Font name="Arial" size="45.0" />
          </font>
       </Label>
       <TextField fx:id="nomeJogador" layoutX="208.0" layoutY="162.0" />
       <Label layoutX="208.0" layoutY="145.0" text="Nome do Jogador:" />
-      <Button layoutX="237.0" layoutY="213.0" mnemonicParsing="false" onAction="#iniciarJogo" text="Iniciar Jogo" />
-      <Button layoutX="249.0" layoutY="255.0" mnemonicParsing="false" onAction="#goToRegras" text="Regras" />
+      <Button layoutX="242.0" layoutY="212.0" mnemonicParsing="false" onAction="#iniciarJogo" prefHeight="32.0" prefWidth="84.0" style="-fx-background-color: lightgreen;" text="Iniciar Jogo" />
+      <Button layoutX="253.0" layoutY="262.0" mnemonicParsing="false" onAction="#goToRegras" prefHeight="32.0" prefWidth="60.0" style="-fx-background-color: yellow;" text="Regras" />
       <Label fx:id="lbNomeVazio" layoutX="209.0" layoutY="187.0" prefHeight="17.0" prefWidth="149.0" />
    </children>
 </AnchorPane>

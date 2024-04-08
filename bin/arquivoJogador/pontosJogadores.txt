@@ -1,5 +1,5 @@
 Derick:4900
-Patrick:7000
+Patrick:6800
 Aimore:1000
 Rafael:-600
 Diana:800
