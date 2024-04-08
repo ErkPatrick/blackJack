@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="616.0" prefWidth="806.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TelaRegrasController">
+   <children>
+      <Label layoutX="340.0" layoutY="14.0" text="Regras">
+         <font>
+            <Font name="Arial" size="32.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="txaRegras" editable="false" layoutX="13.0" layoutY="51.0" prefHeight="562.0" prefWidth="771.0" text="1.Objetivo do Jogo:&#10;&#10;O objetivo do Blackjack é obter uma mão cujo valor total seja o mais &#10;próximo possível de 21, sem excedê-lo. Seu objetivo é vencer o dealer &#10;(o representante do cassino) sem ultrapassar esse limite.&#10;&#10;2.Valor das Cartas:&#10;&#10;As cartas numéricas (de 2 a 10) valem seu valor nominal.&#10;As cartas face (Valete, Dama e Rei) valem 10 pontos cada.&#10;O Ás vale 1&#10;&#10;3.Início do Jogo:&#10;&#10;O jogo começa com o dealer dando duas cartas para o jogador e du-&#10;as cartas para si mesmo. Uma das cartas do dealer é virada para cima e&#10;a outra é virada para baixo (chamada de &quot;carta oculta&quot;).&#10;&#10;4.Jogadas do Jogador:&#10;&#10;Após receber suas duas cartas iniciais, o jogador tem duas opções:&#10;&#10;Puxar carta: Pedir outra carta para aumentar o total da mão.&#10;Manter: Não pedir mais cartas e manter o total atual da mão.&#10;&#10;5.Jogadas do Dealer:&#10;&#10;Após todos os jogadores terem tomado suas decisões, o dealer revela&#10;sua carta oculta.&#10;O dealer deve seguir regras específicas definidas pelo cassino. O dealer&#10;deve pedir cartas adicionais até que o total de sua mão seja 17 ou mais.&#10;&#10;5.Determinação do Vencedor:&#10;&#10;Após o dealer jogar, as mãos do jogador e do dealer são comparadas&#10;para determinar o vencedor.&#10;O jogador vence se sua mão for mais próxima de 21 do que a do dealer, &#10;sem ultrapassar 21. Se o jogador ultrapassar 21, ele perde automatica-&#10;mente, independentemente da mão do dealer.&#10;Se o jogador tiver o mesmo total de pontos que o dealer, isso resulta em&#10;um empate.&#10;Se o Dealer ultrapassar 21 o jogador ganha automaticamente.&#10;&#10;Pontuação:&#10;&#10;Vitorias geram 100 pontos. Se houver uma sequência de vitórias, a pon-&#10;tuação da rodada ganha será de 100*quantidade de vitórias seguidas.&#10;&#10;Derrotas geram uma perda de 100 pontos.">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </TextArea>
+      <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="13.0" layoutY="8.0" onMouseClicked="#voltarTelaInicial" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/setaVoltar.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

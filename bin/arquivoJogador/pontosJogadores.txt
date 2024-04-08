@@ -1,3 +1,6 @@
-Bruno:-100
-Derick:3400
-Patrick:3600
+Derick:4900
+Patrick:7000
+Aimore:1000
+Rafael:-600
+Diana:800
+Bruno:0

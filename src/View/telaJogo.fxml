@@ -83,9 +83,9 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <TextArea fx:id="txaRanking" layoutX="1561.0" layoutY="139.0" prefHeight="754.0" prefWidth="342.0" style="-fx-border-color: blue;">
+      <TextArea fx:id="txaRanking" layoutX="1561.0" layoutY="139.0" prefHeight="754.0" prefWidth="333.0" style="-fx-border-color: blue;">
          <font>
-            <Font size="24.0" />
+            <Font name="Arial" size="24.0" />
          </font>
       </TextArea>
       <Label fx:id="lb1lugar" layoutX="1561.0" layoutY="23.0" prefHeight="35.0" prefWidth="333.0" style="-fx-background-color: white; -fx-text-fill: gold;">

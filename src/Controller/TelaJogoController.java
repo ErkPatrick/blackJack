@@ -142,7 +142,7 @@ public class TelaJogoController {
 	static String path = "";
 	
 
-	private void preencherVetorImageViewJogador() {
+	private void preencherjogadoresArquivoorImageViewJogador() {
 		imgCartasJogador[0] = carta1Jogador;
 		imgCartasJogador[1] = carta2Jogador;
 		imgCartasJogador[2] = carta3Jogador;
@@ -156,7 +156,7 @@ public class TelaJogoController {
 		imgCartasJogador[10] = carta11Jogador;
 	}
 
-	private void preencherVetorImageViewDealer() {
+	private void preencherjogadoresArquivoorImageViewDealer() {
 		imgCartasDealer[0] = carta1Dealer;
 		imgCartasDealer[1] = carta2Dealer;
 		imgCartasDealer[2] = carta3Dealer;
@@ -171,9 +171,9 @@ public class TelaJogoController {
 	}
 
 	public void initialize(String nomeJogadorString) throws Exception {
-		// inicializo os vetores de imagens para melhor manipulação
-		preencherVetorImageViewJogador();
-		preencherVetorImageViewDealer();
+		// inicializo os jogadoresArquivoores de imagens para melhor manipulação
+		preencherjogadoresArquivoorImageViewJogador();
+		preencherjogadoresArquivoorImageViewDealer();
 
 		// crio o jogo e suas configurações iniciais básicas, como nome e etc
 		blackjack = new Blackjack(nomeJogadorString, "Dealer");
@@ -186,8 +186,6 @@ public class TelaJogoController {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		
-
 		
 		// setando os nomes dos jogadores nos campos de nomes
 		nomeDealer.setText(blackjack.getDealer().getNome());
@@ -205,6 +203,9 @@ public class TelaJogoController {
 	}
 
 	private void exibirRankingJogadores() throws Exception {
+		//assim o jogador não pode altera o texto da text area
+	    txaRanking.setEditable(false);
+	    
 		class JogadorArquivo{
 			String nome;
 			int pontos;
@@ -240,24 +241,7 @@ public class TelaJogoController {
 		}
 		br.close();
 		
-		//algoritmo de ordenação insertSort
-//	    int j;
-//		jogadorArquivo eleito;
-//	    int size = qtdJogadoresArquivo;
-//	    
-//	    // LOOP EXTERNO
-//	    for (int i = 0; i < size; i++)
-//	    {	    	
-//	        eleito = jogadoresArquivo[i];
-//	        j = i - 1;
-//
-//	        while ( (j>=0) && (eleito.pontos < jogadoresArquivo[j].pontos) ) 
-//	        {
-//	            jogadoresArquivo[j+1] = jogadoresArquivo[j];
-//	            j--;
-//	        }
-//	        jogadoresArquivo[j+1] = eleito;
-//	    }
+		
 		//algoritmo de ordenação bubbleSort otimizado
 		boolean ordenado = false;
 		for(int i = 0; i < qtdJogadoresArquivo-1 && ordenado == false; i++) {
@@ -271,9 +255,11 @@ public class TelaJogoController {
 				}
 			}
 		}
+
 	    for(int i = qtdJogadoresArquivo-1; i>=0; i--) {
 	    	filaRanking.add(jogadoresArquivo[i]);
 	    }
+	    String rankingUltimos = "";
 	    for(int i = 0; i<qtdJogadoresArquivo; i++) {
 	    	if(i==0) {
 	    		lb1lugar.setText("1º)" + filaRanking.peek().getNome() + "(" + filaRanking.peek().getPontos() + ")");
@@ -285,16 +271,17 @@ public class TelaJogoController {
 	    		lb3lugar.setText("3º)" + filaRanking.peek().getNome() + "(" + filaRanking.peek().getPontos() + ")");
 	    	}
 	    	else {
-	    		txaRanking.setText((i+1) + "º)" + filaRanking.peek().getNome() + "(" + filaRanking.peek().getPontos() + ")\n");
+	    		rankingUltimos += (i+1) + ")" + filaRanking.peek().getNome() + "(" + filaRanking.peek().getPontos() + ")\n";
 	    	}
 		    filaRanking.remove();
 	    }
+	    txaRanking.setText(rankingUltimos);
 	}
-	
+
 	
 
 	private void buscarJogadorArquivo(String nomeJogador) throws IOException {
-		BufferedReader br = new BufferedReader( new FileReader(path) );
+		BufferedReader br = new BufferedReader(new FileReader(path));
 		boolean encontrouJogador = false;
 		String linha = "";
 		String[] linhaSplit;

@@ -25,8 +25,16 @@ public class TelaInicialController {
 	private Parent root;
 
 	@FXML
-	void goToRegras(ActionEvent event) {
-
+	void goToRegras(ActionEvent event) throws IOException {
+		Stage stage;
+		Scene scene;
+		Parent root;
+		root = FXMLLoader.load(getClass().getResource("../View/telaRegras.fxml"));
+	    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+	    scene = new Scene(root);
+	    stage.setTitle("Tela Inicial");
+	    stage.setScene(scene);
+	    stage.show();
 	}
 
 	@FXML
